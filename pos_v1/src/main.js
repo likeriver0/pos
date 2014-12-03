@@ -1,20 +1,35 @@
 //TODO: Please write code in this file.
 
+
+
 function GetItemIndex(barcode){
     var index = 0;
     return index;
 }
 
 function CountItems(inputs){
-    var inputs_new = [
-        'ITEM000001-5',
-        'ITEM000003-2',
-        'ITEM000005-3'
-    ];
-
+    var i;
+    var j = 1;
+    var x =0;
+    var inputs_new = new Array();
+    for(i = 0 ; i < inputs.length ; i++){
+        if(inputs[i].split('-')[1] != undefined){
+            inputs_new[x] = inputs[i];
+            x++
+            continue;
+        }
+        if(inputs[i] == inputs[i+1]){
+            j++;
+        }
+        else{
+            inputs_new[x] = inputs[i]+'-'+j;
+            x++;
+            j = 1;
+        }
+    }
     return inputs_new;
-
 }
+CountItems(inputs);
 
 function WhetherPromotions(barcode){
     return 'YES';
@@ -36,10 +51,10 @@ function Settle_Account(inputs_new){
             if (WhetherAchieve( loadAllItems()[index].barcode )) {
                 //打折时,记录打折商品以及优惠多少
             }
-           
+
         }
         //不打折时
-        
+
     }
 }
 //主函数
@@ -51,4 +66,6 @@ function  printInventory(inputs) {
     Settle_Account(inputs_new);
 
 }
+
 printInventory()
+
