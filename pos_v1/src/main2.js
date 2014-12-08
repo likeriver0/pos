@@ -1,5 +1,5 @@
 //第一重变化
-var buy_items  = [
+/*var buy_items  = [
     {
         name : '',
         number : 0 ,
@@ -7,9 +7,22 @@ var buy_items  = [
         unit : '' ,
         Promotions_type : 0     //0表示无优惠
     }
-]
+]*/
 
-//main.js是上次写完的，貌似没传上去,main2.js是根据underscore重构的，未完成
+//形成上述数据结构
+function build_buy_items(inputs) {
+    buy_items = _.chain(inputs).groupBy(function (value) {
+        return value.substring(4, 10)
+    }).map(function (value, key) {
+        if(value[0].split('-')[1] != undefined) {
+            return {name: value[0].split('-')[0], number: Number(value[0].split('-')[1]), price: Number(_(loadAllItems()).findWhere({"barcode": value[0].split('-')[0]}).price).toFixed(2), unit: _(loadAllItems()).findWhere({"barcode": value[0].split('-')[0]}).unit , Promotions_type : (_.find(loadPromotions()[0].barcodes , function(num){return num == value[0].split('-')[0]}) ? loadPromotions()[0].type : 0 )
+            }
+        }
+        return {name: value[0].split('-')[0], number: value.length, price: _(loadAllItems()).findWhere({"barcode": value[0].split('-')[0]}).price.toFixed(2), unit: _(loadAllItems()).findWhere({"barcode": value[0].split('-')[0]}).unit , Promotions_type : (_.find(loadPromotions()[0].barcodes , function(num){return num == value[0].split('-')[0]}) ? loadPromotions()[0].type : 0 )
+        }
+    }).value()
+    return buy_items;
+}
 //为了满足后续变化，这个结构体只是最后成型的结构，在这之前还应该有个更加抽象的，更加通用型的结构，以便以后优惠政策变了的话
 var receipt_items = {
     paid_items : [
@@ -72,5 +85,3 @@ function printInventory(inputs){
     console.log(str);
 }
 
-//形成最终结构
-_.chain(inputs).map(function(value , key , list){return value.split('-')[0]}).groupBy(function(value){return value.substring(4,10)}).map(function(value , key){return {name : value[0] , number : value.length , price : _(loadAllItems()).findWhere({"barcode": 'ITEM000003'}).price, unit :_(loadAllItems()).findWhere({"barcode": 'ITEM000003'}).unit ,sum : Number(key)*value.length }}).value()
