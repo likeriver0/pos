@@ -62,7 +62,20 @@ var receipt_items = {
     ]
 };
 
+//如何形成paid_items
+function build_paid_items(){
+    var _receipt_items = _.chain(buy_items).map(function(value){
+        return {name : value.name , numner : value.number , unit : value.unit , price : value.price , sum : value.Promotions_type ? (value.number-parseInt((value.number)/3))*Number(value.price) : value.number*Number(value.price)} }).value()
 
+    return receipt_items;
+}
+
+//形成send_paid
+function build_send_paid(){
+
+}
+
+//receipt_items = {paid_items: paid_items , send_paid : send_paid}
 
 
 function printInventory(inputs){
