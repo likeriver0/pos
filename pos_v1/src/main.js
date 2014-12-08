@@ -1,14 +1,13 @@
-//TODO: Please write code in this file.
 
 /*函数说明
-*function CountItems(inputs)                        //形成购买商品的结构体数组
-*       ==》function WhetherPromotions(barcode)     //判定是否是优惠产品
-*function Settle_Account(Items_buy)                 //打印总表
-*       ==》function Printfirstpart(Items_buy)      //打印第一部分
-*       ==》function PrintSecondpart(Items_buy)     //打印第一部分
-*       ==》function Printthirdpart(Items_buy)      //打印第一部分
-*function DeleteItems_buy(Items_buy)                //清除数据结构（未用到）
-* */
+ *function CountItems(inputs)                        //形成购买商品的结构体数组
+ *       ==》function WhetherPromotions(barcode)     //判定是否是优惠产品
+ *function Settle_Account(Items_buy)                 //打印总表
+ *       ==》function Printfirstpart(Items_buy)      //打印第一部分
+ *       ==》function PrintSecondpart(Items_buy)     //打印第一部分
+ *       ==》function Printthirdpart(Items_buy)      //打印第一部分
+ *function DeleteItems_buy(Items_buy)                //清除数据结构（未用到）
+ * */
 
 //这是一个结构体数组
 var Items_buy = [{
@@ -86,7 +85,7 @@ function PrintSecondpart(Items_buy){
         }
     }
 }
-
+//最终改进版，重构完成
 function Printthirdpart(Items_buy){
     str = str + '总计：'+ sum.toFixed(2) +'(元)'+'\n'
     str = str + '节省：'+ Promotions.toFixed(2)+'(元)'+'\n'
